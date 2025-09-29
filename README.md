@@ -1,1 +1,2 @@
-# analisis-pokemon-
+# tarea analisis-pokemon 
+Nombre: Cristopher Castillo 
