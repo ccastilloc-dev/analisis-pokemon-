@@ -1,29 +1,21 @@
-# -*- coding: utf-8 -*-
+
 # Análisis de Datos con Pokémon (Primera Generación)
-# Ejecutar en Visual Studio Code
+
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# =======================
 # 1. Lectura de datos
-# =======================
 df = pd.read_csv("pokemon_primera_gen.csv")
 print("Primeras filas del DataFrame:")
 print(df.head())
-
-# =======================
 # 2. Filtrado y selección
-# =======================
 tipo_Fuego = df.loc[df["Tipo 1"] == "Fuego", ["Nombre", "Tipo 1", "Ataque", "Velocidad"]]
 print("\nPokémon de tipo Fuego (Nombre, Tipo 1, Ataque, Velocidad):")
 print(tipo_Fuego)
-
-# =======================
 # 3. Estadística descriptiva básica
-# =======================
 promedio_Ataques = round(df["Ataque"].mean(), 1)
 mediana_Ataques = df["Ataque"].median()
 moda_Ataques = df["Ataque"].mode()[0]
@@ -56,9 +48,7 @@ print("\n--- Estadísticas de PS ---")
 print("Rango de PS:", rango_PS)
 print("Desviación estándar de PS:", desv_std_PS)
 
-# =======================
 # 4. Visualización de datos
-# =======================
 sns.set(style="whitegrid")
 
 # Histograma de Ataque
@@ -89,18 +79,14 @@ plt.title("Distribución de Defensa por Tipo Principal")
 plt.xticks(rotation=45)
 plt.show()
 
-# =======================
 # 5. Manipulación de datos
-# =======================
 df["Poder Total"] = df["Ataque"] + df["Defensa"] + df["Velocidad"] + df["PS"]
 df_ordenado = df.sort_values("Poder Total", ascending=False)
 
 print("\nTop 5 Pokémon con mayor Poder Total:")
 print(df_ordenado[["Nombre", "Tipo 1", "Poder Total"]].head())
 
-# =======================
 # 6. Agrupamiento y análisis por grupo
-# =======================
 # Estadísticas de ataque por Tipo 1
 ataque_stats = df.groupby("Tipo 1")["Ataque"].agg(["mean", "median", "std"])
 print("\nEstadísticas de Ataque por Tipo 1:")
@@ -124,9 +110,7 @@ ps_extremos = df.groupby("Tipo 1").apply(
 print("\nPokémon con mayor y menor PS por tipo:")
 print(ps_extremos)
 
-# =======================
 # 7. Análisis exploratorio (EDA)
-# =======================
 # Tipos con mayor ataque y defensa
 print("\nTop 3 tipos con mayor ataque promedio:")
 print(ataque_stats.sort_values("mean", ascending=False).head(3))
@@ -155,11 +139,10 @@ sns.boxplot(x=df["PS"])
 plt.title("Outliers en PS")
 plt.show()
 
-# =======================
-# 8. Interpretación (texto orientativo)
-# =======================
+# 8. Interpretación 
 print("\n--- Interpretación ---")
 print("Algunos tipos destacan en ataque (ej. Lucha, Dragón), otros en defensa (Roca, Acero).")
 print("La correlación entre Ataque y Velocidad indica si los fuertes también suelen ser rápidos.")
 print("El tipo con mayor dispersión en PS es el menos homogéneo en cuanto a vida.")
+
 print("Los outliers corresponden a Pokémon legendarios o con stats muy elevados.")
